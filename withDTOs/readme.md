@@ -47,7 +47,11 @@ And Logger facory is used to get the SQL queries that application used to query 
 examples
 
 ```sql
-
+Executed DbCommand (1ms) [Parameters=[@__p_0='1'], CommandType='Text', CommandTimeout='30']
+      SELECT "t"."Id", "t"."IsComplete", "t"."Name"
+      FROM "Todo" AS "t"
+      WHERE "t"."Id" = @__p_0
+      LIMIT 1
 ```
 
 EF core Database Migration
@@ -57,4 +61,5 @@ EF core Database Migration
     dotnet ef database update
 ```
 
-[final output](./Screenshot%202022-01-23%20225442.png)
+final output
+![final output](./Screenshot%202022-01-23%20225442.png)
