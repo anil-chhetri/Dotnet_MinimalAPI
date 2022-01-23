@@ -16,7 +16,7 @@ In simple term, generally application would not send every data recevied from da
 | Http Verb | EndPoint       | Status Codes                           | Descriptions            |
 |-----------|----------------|----------------------------------------|-------------------------|
 | POST      | /Todo          | 201 Created                            | Create a todo items     |
-| GET       | /Todo/{Id:int} | 200 Ok, 404 Not found                  | get todo item by ID     |
+| GET       | /Todo/{Id:int} | 200 Ok, 404 Not found, 400 Bad Request | get todo item by ID     |
 | GET       | /Todo          | 200 Ok                                 | get all todo items      |
 | PUT       | /Todo/{Id:int} | 200 Ok, 404 Not found, 400 Bad Request | updates todo item by Id |
 | DELETE    | /Todo/{Id:int} | 204 No Content, 404 Not found          | Delete todo item by Id  |
@@ -28,6 +28,7 @@ Adding necessary Nuget package
     dotnet add package Microsoft.EntityFrameworkCore.Sqlite --version 6.0.1
     dotnet add package Microsoft.EntityFrameworkCore.Design --version 6.0.1
 ```
+
 Adding DbContext:
 
 ```csharp
@@ -37,7 +38,7 @@ Adding DbContext:
         .UseLoggerFactory(LoggerFactory.Create(builder => builder.AddConsole()))
         .EnableSensitiveDataLogging()
         .UseSqlite(connetionString);
-});
+    });
 ```
 
 In above code by using ``AddDbContext`` we are injecting ``appDbContext`` class to our project which inherits ``DbContext`` and contains information about table need for our projects. After using ``AddDbContext`` now we can get access to our ``appDbcontext`` class around the application either it can be accessed in constructor or in our class method using ``FromService`` attributes. we can also use our `appDbContext` in other places but need to do some over work for that.
@@ -47,4 +48,11 @@ examples
 
 ```sql
 select "todo later";
+```
+
+EF core Database Migration
+
+```Console
+    dotnet ef migrations add <MigrationsName>
+    dotnet ef database update
 ```
