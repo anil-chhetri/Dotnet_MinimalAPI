@@ -11,12 +11,23 @@ In simple term, generally application would not send every data recevied from da
     - Omit some properties in order to reduce payload size.
     - Flatten object graphs that contain nested objects. Flattened object graphs can be more convenient for clients.
 
+## Ends points of the API
+
+| Http Verb | EndPoint       | Status Codes                           | Descriptions            |
+|-----------|----------------|----------------------------------------|-------------------------|
+| POST      | /Todo          | 201 Created                            | Create a todo items     |
+| GET       | /Todo/{Id:int} | 200 Ok, 404 Not found                  | get todo item by ID     |
+| GET       | /Todo          | 200 Ok                                 | get all todo items      |
+| PUT       | /Todo/{Id:int} | 200 Ok, 404 Not found, 400 Bad Request | updates todo item by Id |
+| DELETE    | /Todo/{Id:int} | 204 No Content, 404 Not found          | Delete todo item by Id  |
+
+Adding necessary Nuget package
+
 ```Console
     dotnet add package Microsoft.EntityFrameworkCore --version 6.0.1
     dotnet add package Microsoft.EntityFrameworkCore.Sqlite --version 6.0.1
     dotnet add package Microsoft.EntityFrameworkCore.Design --version 6.0.1
 ```
-
 Adding DbContext:
 
 ```csharp
@@ -27,4 +38,13 @@ Adding DbContext:
         .EnableSensitiveDataLogging()
         .UseSqlite(connetionString);
 });
+```
+
+In above code by using ``AddDbContext`` we are injecting ``appDbContext`` class to our project which inherits ``DbContext`` and contains information about table need for our projects. After using ``AddDbContext`` now we can get access to our ``appDbcontext`` class around the application either it can be accessed in constructor or in our class method using ``FromService`` attributes. we can also use our `appDbContext` in other places but need to do some over work for that.
+And Logger facory is used to get the SQL queries that application used to query that database and `EnableSensitiveDataLogging` is used to get the input information used by EF core.
+
+examples
+
+```sql
+select "todo later";
 ```
