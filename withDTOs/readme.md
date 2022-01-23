@@ -47,7 +47,7 @@ And Logger facory is used to get the SQL queries that application used to query 
 examples
 
 ```sql
-select "todo later";
+
 ```
 
 EF core Database Migration
@@ -56,3 +56,5 @@ EF core Database Migration
     dotnet ef migrations add <MigrationsName>
     dotnet ef database update
 ```
+
+[final output](./Screenshot%202022-01-23%20225442.png)
